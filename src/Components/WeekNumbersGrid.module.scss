@@ -1,0 +1,33 @@
+@import "../variables";
+@import "./MonthDaysGrid.module.scss";
+
+.Number {
+  @extend .Day;
+  cursor: default;
+  margin: 0 $cell-spacing $cell-spacing * 2 0;
+  position: relative;
+
+  &.Selected {
+    background-color: $primary-color;
+    border-radius: 50%;
+    color: white;
+  }
+
+  &.Hover {
+    background-color: $primary-color-light;
+    border-radius: 50%;
+    color: black;
+
+    &.Disabled {
+      color: $gray-500;
+    }
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.ActiveNumber {
+  cursor: pointer;
+}

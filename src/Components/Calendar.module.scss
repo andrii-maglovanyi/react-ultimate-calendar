@@ -1,0 +1,151 @@
+@import "../variables";
+
+@function radius($size) {
+  @return $size / 2 + ($size * $size) / (8 * $size);
+}
+
+%Hover {
+  &:before {
+    background-color: $primary-color-light;
+    border-radius: 50%;
+    color: black;
+    content: attr(data-day);
+    display: block;
+    height: $cell-size;
+    line-height: $cell-size;
+    position: absolute;
+    width: $cell-size;
+    z-index: 1;
+  }
+}
+
+.Calendar {
+  max-width: 100%;
+  background: white;
+  box-shadow: 0 2px 44px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  overflow: hidden;
+  padding-bottom: 0.8rem;
+  position: absolute;
+}
+
+.CalendarHeader {
+  box-sizing: border-box;
+  height: 4rem;
+  padding: 1rem;
+  line-height: 4rem;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.GridHeader {
+  background-color: #fbfbfb;
+  box-sizing: border-box;
+  display: flex;
+  height: 1.5rem;
+  line-height: 1.5rem;
+  margin-bottom: 0.5rem;
+  padding: 0 0.8rem;
+  width: 100%;
+
+  .HeaderItem {
+    color: #8c8f93;
+    cursor: default;
+    flex: 1 1 auto;
+    font-size: 0.7rem;
+    text-align: center;
+    text-transform: uppercase;
+  }
+}
+
+.WeekRow {
+  display: flex;
+  margin: 0 0.8rem;
+
+  &:not(.Hover) {
+    .Day:not(.Disabled):not(.Range):not(.RangeEnd):not(.RangeStart):hover {
+      background-color: $primary-color-light;
+      border-radius: 50%;
+    }
+  }
+}
+
+.WeekRow {
+  &.Hover {
+    .Day {
+      background-color: $primary-color-light;
+      border-radius: 0;
+      color: black;
+      margin: 0 0 $cell-spacing * 2 0;
+      padding: 0;
+      width: $cell-size + $cell-spacing * 2;
+
+      &.Disabled {
+        color: $gray-500;
+      }
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    .OtherMonth {
+      color: $gray-500;
+    }
+
+    .Day:first-child {
+      background: $primary-color-light;
+      border-radius: radius($cell-size) 0 0 radius($cell-size);
+      margin: 0 0 $cell-spacing * 2 $cell-spacing;
+      padding-right: $cell-spacing;
+      width: $cell-size + $cell-spacing;
+    }
+
+    .Day:last-child {
+      background: $primary-color-light;
+      border-radius: 0 radius($cell-size) radius($cell-size) 0;
+      margin: 0 $cell-spacing $cell-spacing * 2 0;
+      padding-left: $cell-spacing;
+      width: $cell-size + $cell-spacing;
+    }
+
+    &:last-child {
+      .Day {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+.WeekRow:last-child {
+  .Day {
+    margin-bottom: 0;
+  }
+}
+
+.WeekRowHover {
+  .WeekRow {
+    &:hover {
+      @extend .WeekRow, .Hover;
+    }
+  }
+}
+
+.Flex {
+  display: flex;
+}
+
+.FlexDays {
+  flex-grow: 7;
+  flex-shrink: 2;
+}
+
+.FlexWeeks {
+  flex-grow: 2;
+  flex-shrink: 7;
+
+  .WeekNumbersWrapper {
+    margin-right: 0.8rem;
+  }
+}

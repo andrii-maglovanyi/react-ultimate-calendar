@@ -1,0 +1,76 @@
+@import "../variables";
+@import "./Calendar.module.scss";
+
+.Day {
+  box-sizing: border-box;
+  cursor: pointer;
+  flex: 1 1 auto;
+  font-size: 0.7rem;
+  height: $cell-size;
+  line-height: $cell-size;
+  margin: 0 $cell-spacing $cell-spacing * 2 $cell-spacing;
+  padding: 0;
+  text-align: center;
+  vertical-align: middle;
+  width: $cell-size;
+
+  &.Disabled {
+    color: $gray-500;
+    cursor: default;
+  }
+
+  &.OtherMonth {
+    color: $gray-500;
+  }
+
+  &.Today {
+    background-color: $primary-color-light;
+    border-radius: 50%;
+  }
+
+  &.Range {
+    background-color: $primary-color;
+    border-radius: 0;
+    color: white;
+    margin: 0 0 $cell-spacing * 2 0;
+    width: $cell-size + $cell-spacing * 2;
+  }
+
+  &.RangeEnd {
+    background-color: $primary-color;
+    border-top-right-radius: radius($cell-size);
+    border-bottom-right-radius: radius($cell-size);
+    color: white;
+    margin: 0 $cell-spacing $cell-spacing * 2 0;
+    width: $cell-size + $cell-spacing;
+    padding-left: $cell-spacing;
+  }
+
+  &.RangeStart {
+    background-color: $primary-color;
+    border-top-left-radius: radius($cell-size);
+    border-bottom-left-radius: radius($cell-size);
+    color: white;
+    margin: 0 0 $cell-spacing * 2 $cell-spacing;
+    width: $cell-size + $cell-spacing;
+    padding-right: $cell-spacing;
+  }
+
+  &.RangeEnd.RangeStart {
+    margin: 0 $cell-spacing $cell-spacing * 2 $cell-spacing;
+    padding: 0;
+    width: $cell-size;
+  }
+
+  &.Range:hover {
+    @extend %Hover;
+    &:before {
+      margin: 0 $cell-spacing;
+    }
+  }
+
+  &.RangeEnd:hover,
+  &.RangeStart:hover {
+    @extend %Hover;
+  }
+}
