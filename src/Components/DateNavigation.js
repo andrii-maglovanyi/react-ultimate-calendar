@@ -20,6 +20,7 @@ const DateNavigation = ({
     )}
   >
     <span
+      aria-label="Previous month"
       className={classNames(styles.PrevDate, {
         [styles.PrevDateBorder]: border
       })}
@@ -39,6 +40,7 @@ const DateNavigation = ({
       {children}
     </div>
     <span
+      aria-label="Next month"
       className={classNames(styles.NextDate, {
         [styles.NextDateBorder]: border
       })}
