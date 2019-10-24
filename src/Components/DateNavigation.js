@@ -4,7 +4,6 @@ import React from "react";
 
 import styles from "./DateNavigation.module.scss";
 
-// TODO: chane role, change tabIndex
 const DateNavigation = ({
   border,
   className,
