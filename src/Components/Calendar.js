@@ -28,8 +28,21 @@ const Calendar = ({
   weeksSelector,
   year: yearParam
 }) => {
-  // TODO: validate range
   const [_rangeStart, _rangeEnd] = Array.isArray(value) ? value : [value, null];
+
+  if (
+    _rangeEnd &&
+    !isAfterDate(
+      _rangeStart,
+      _rangeEnd.getDate(),
+      _rangeEnd.getMonth(),
+      _rangeEnd.getFullYear()
+    )
+  ) {
+    throw new Error(
+      "Invalid dates range. End date must be later than the start date."
+    );
+  }
 
   const [rangeStart, setRangeStart] = useState(_rangeStart);
   const [rangeEnd, setRangeEnd] = useState(_rangeEnd);
