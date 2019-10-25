@@ -1,28 +1,14 @@
-import classNames from "classnames";
 import PropTypes from "prop-types";
 import React from "react";
 
+import classNames from "../Utils/ClassNames";
 import styles from "./DateNavigation.module.scss";
 
-const DateNavigation = ({
-  border,
-  className,
-  children,
-  nextDate,
-  prevDate
-}) => (
-  <div
-    className={classNames(
-      styles.DateNavigation,
-      { [styles.DateNavigationBorder]: border },
-      className
-    )}
-  >
+const DateNavigation = ({ className, children, nextDate, prevDate }) => (
+  <div className={classNames(styles.DateNavigation, className)}>
     <span
       aria-label="Previous month"
-      className={classNames(styles.PrevDate, {
-        [styles.PrevDateBorder]: border
-      })}
+      className={styles.PrevDate}
       onClick={prevDate}
       onKeyPress={prevDate}
       data-testid="action-prev-date"
@@ -31,18 +17,10 @@ const DateNavigation = ({
     >
       &#8249;
     </span>
-    <div
-      className={classNames(styles.CurrentDate, {
-        [styles.CurrentDateBorder]: border
-      })}
-    >
-      {children}
-    </div>
+    <div className={styles.CurrentDate}>{children}</div>
     <span
       aria-label="Next month"
-      className={classNames(styles.NextDate, {
-        [styles.NextDateBorder]: border
-      })}
+      className={styles.NextDate}
       onClick={nextDate}
       onKeyPress={nextDate}
       data-testid="action-next-date"
@@ -55,7 +33,6 @@ const DateNavigation = ({
 );
 
 DateNavigation.propTypes = {
-  border: PropTypes.bool,
   children: PropTypes.node,
   className: PropTypes.string,
   nextDate: PropTypes.func.isRequired,
@@ -63,7 +40,6 @@ DateNavigation.propTypes = {
 };
 
 DateNavigation.defaultProps = {
-  border: false,
   children: [],
   className: ""
 };

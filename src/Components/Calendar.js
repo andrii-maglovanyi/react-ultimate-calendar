@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import classNames from "classnames";
 
 import DateNavigation from "./DateNavigation";
 import MonthDaysGrid from "./MonthDaysGrid";
 import WeekNumbersGrid from "./WeekNumbersGrid";
+
+import classNames from "../Utils/ClassNames";
 
 import {
   getWeekDays,

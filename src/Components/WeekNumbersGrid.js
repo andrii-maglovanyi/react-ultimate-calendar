@@ -1,5 +1,6 @@
 import React from "react";
-import classNames from "classnames";
+
+import classNames from "../Utils/ClassNames";
 
 import styles from "./WeekNumbersGrid.module.scss";
 
@@ -66,26 +67,27 @@ const WeekNumbersGrid = ({
   return weekNumbersRangeInMonth(month, year).map(
     ({ start, end, number }, index) => (
       <div
-        className={classNames(styles.Number, {
-          [styles.ActiveNumber]: weeksSelector,
-          [styles.Disabled]:
-            (max &&
-              isAfterDate(
-                max,
-                end.getDate(),
-                end.getMonth(),
-                end.getFullYear()
-              )) ||
+        className={classNames(
+          styles.Number,
+          weeksSelector && styles.ActiveNumber,
+          ((max &&
+            isAfterDate(
+              max,
+              end.getDate(),
+              end.getMonth(),
+              end.getFullYear()
+            )) ||
             (min &&
               isBeforeDate(
                 min,
                 start.getDate(),
                 start.getMonth(),
                 start.getFullYear()
-              )),
-          [styles.Hover]: hoverWeek === index,
-          [styles.Selected]: isSelected(start, end)
-        })}
+              ))) &&
+            styles.Disabled,
+          hoverWeek === index && styles.Hover,
+          isSelected(start, end) && styles.Selected
+        )}
         key={number}
         onFocus={() => setHoverWeek(index)}
         onMouseOver={() => setHoverWeek(index)}

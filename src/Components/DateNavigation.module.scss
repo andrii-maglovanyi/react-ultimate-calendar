@@ -1,35 +1,15 @@
-@import "../variables";
-
 .DateNavigation {
   display: flex;
   align-items: center;
   width: 100%;
 }
 
-.DateNavigationBorder {
-  border: 1px solid $gray-300;
-  border-radius: 4px;
-  width: fit-content;
-}
-
 .CurrentDate {
-  cursor: default;
   flex-grow: 1;
-}
-
-.CurrentDateBorder {
-  border-left: 1px solid $gray-300;
-  border-right: 1px solid $gray-300;
-  padding: 0.6rem 1rem;
 }
 
 .PrevDate,
 .NextDate {
   cursor: pointer;
   flex-grow: 0;
-}
-
-.PrevDateBorder,
-.NextDateBorder {
-  padding: 0.6rem 1rem;
 }

@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import classNames from "classnames";
 
 import styles from "./MonthDaysGrid.module.scss";
 
@@ -14,6 +13,8 @@ import {
   isBeforeDate,
   numDaysInMonth
 } from "../Utils/Date";
+
+import classNames from "../Utils/ClassNames";
 
 import findClosestElementWithClass from "../Utils/Dom";
 
@@ -140,23 +141,25 @@ const MonthDaysGrid = ({
 
     return (
       <div
-        className={classNames(styles.Day, {
-          [styles.OtherMonth]: !currentMonth,
-          [styles.Disabled]:
-            (max && isAfterDate(max, dayValue, monthValue, yearValue)) ||
-            (min && isBeforeDate(min, dayValue, monthValue, yearValue)),
-          [styles.Today]:
-            isSameDay(today, dayValue, monthValue, yearValue) &&
+        className={classNames(
+          styles.Day,
+          !currentMonth && styles.OtherMonth,
+          (max && isAfterDate(max, dayValue, monthValue, yearValue)) ||
+            (min &&
+              isBeforeDate(min, dayValue, monthValue, yearValue) &&
+              styles.Disabled),
+          isSameDay(today, dayValue, monthValue, yearValue) &&
             !isRangeEnd() &&
-            !isRangeStart(),
-          [styles.Range]:
-            rangeStartValue &&
+            !isRangeStart() &&
+            styles.Today,
+          rangeStartValue &&
             rangeEndValue &&
             (isAfterDate(rangeStartValue, dayValue, monthValue, yearValue) &&
-              isBeforeDate(rangeEndValue, dayValue, monthValue, yearValue)),
-          [styles.RangeEnd]: isRangeEnd(),
-          [styles.RangeStart]: isRangeStart()
-        })}
+              isBeforeDate(rangeEndValue, dayValue, monthValue, yearValue)) &&
+            styles.Range,
+          isRangeEnd() && styles.RangeEnd,
+          isRangeStart() && styles.RangeStart
+        )}
         data-month={monthValue}
         data-day={dayValue}
         data-year={yearValue}
@@ -212,9 +215,10 @@ const MonthDaysGrid = ({
     if (dayNum === 7) {
       rows.push(
         <div
-          className={classNames(styles.WeekRow, {
-            [styles.Hover]: hoverWeek === rows.length
-          })}
+          className={classNames(
+            styles.WeekRow,
+            hoverWeek === rows.length && styles.Hover
+          )}
           key={rows.length}
           onFocus={() => weeksSelector && setHoverWeek(index)}
           onMouseOver={() => weeksSelector && setHoverWeek(index)}
@@ -253,9 +257,10 @@ const MonthDaysGrid = ({
 
   rows.push(
     <div
-      className={classNames(styles.WeekRow, {
-        [styles.Hover]: hoverWeek === rows.length
-      })}
+      className={classNames(
+        styles.WeekRow,
+        hoverWeek === rows.length && styles.Hover
+      )}
       key={rows.length}
       onFocus={() => weeksSelector && setHoverWeek(rows.length - 1)}
       onMouseOver={() => weeksSelector && setHoverWeek(rows.length - 1)}
@@ -265,12 +270,9 @@ const MonthDaysGrid = ({
     </div>
   );
 
-  // TODO: change role
   return (
     <div
-      className={classNames({
-        [styles.WeekRowHover]: weeksSelector
-      })}
+      className={classNames(weeksSelector && styles.WeekRowHover)}
       onClick={onClick}
       onKeyPress={onClick}
       role="button"
