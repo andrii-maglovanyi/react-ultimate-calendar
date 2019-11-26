@@ -23,6 +23,7 @@ const MonthDaysGrid = ({
   max,
   min,
   month,
+  multi,
   onChange,
   rangeEnd,
   rangeStart,
@@ -47,9 +48,9 @@ const MonthDaysGrid = ({
       const date = new Date(yearValue, monthValue, dayValue);
       date.setHours(0, 0, 0, 0);
 
+      const firstDayOfWeek = getFirstDayOfWeek(locale);
+      const number = getWeekNumber(date, firstDayOfWeek);
       if (weeksSelector) {
-        const firstDayOfWeek = getFirstDayOfWeek(locale);
-        const number = getWeekNumber(date, firstDayOfWeek);
         const startOfWeek = getStartOfWeek(date, firstDayOfWeek);
         const endOfWeek = getEndOfWeek(date, firstDayOfWeek);
 
@@ -111,9 +112,9 @@ const MonthDaysGrid = ({
             rangeEnd.getFullYear()
           )
         ) {
-          onChange(rangeStart);
+          onChange(number, rangeStart);
         } else {
-          onChange(rangeStart, rangeEnd);
+          onChange(number, rangeStart, rangeEnd);
         }
       }
     }
@@ -142,7 +143,7 @@ const MonthDaysGrid = ({
       <div
         className={classNames(
           styles.Day,
-          !currentMonth && styles.OtherMonth,
+          !currentMonth && styles[multi ? "NoShowMonth" : "OtherMonth"],
           (max && isAfterDate(max, dayValue, monthValue, yearValue)) ||
             (min &&
               isBeforeDate(min, dayValue, monthValue, yearValue) &&
@@ -216,11 +217,11 @@ const MonthDaysGrid = ({
         <div
           className={classNames(
             styles.WeekRow,
-            hoverWeek === rows.length && styles.Hover
+            hoverWeek === `${month}_${rows.length}` && styles.Hover
           )}
           key={rows.length}
-          onFocus={() => weeksSelector && setHoverWeek(index)}
-          onMouseOver={() => weeksSelector && setHoverWeek(index)}
+          onFocus={() => weeksSelector && setHoverWeek(`${month}_${index}`)}
+          onMouseOver={() => weeksSelector && setHoverWeek(`${month}_${index}`)}
           onMouseLeave={() => setHoverWeek(null)}
         >
           {columns}
@@ -258,11 +259,15 @@ const MonthDaysGrid = ({
     <div
       className={classNames(
         styles.WeekRow,
-        hoverWeek === rows.length && styles.Hover
+        hoverWeek === `${month}_${rows.length}` && styles.Hover
       )}
       key={rows.length}
-      onFocus={() => weeksSelector && setHoverWeek(rows.length - 1)}
-      onMouseOver={() => weeksSelector && setHoverWeek(rows.length - 1)}
+      onFocus={() =>
+        weeksSelector && setHoverWeek(`${month}_${rows.length - 1}`)
+      }
+      onMouseOver={() =>
+        weeksSelector && setHoverWeek(`${month}_${rows.length - 1}`)
+      }
       onMouseLeave={() => setHoverWeek(null)}
     >
       {columns}
@@ -272,6 +277,7 @@ const MonthDaysGrid = ({
   return (
     <div
       className={classNames(weeksSelector && styles.WeekRowHover)}
+      data-testid="month-days"
       onClick={onClick}
       onKeyPress={onClick}
       role="button"
@@ -300,6 +306,7 @@ MonthDaysGrid.propTypes = {
   max: PropTypes.instanceOf(Date),
   min: PropTypes.instanceOf(Date),
   month: PropTypes.number,
+  multi: PropTypes.bool.isRequired,
   onChange: PropTypes.func.isRequired,
   rangeEnd: PropTypes.instanceOf(Date),
   rangeStart: PropTypes.instanceOf(Date),

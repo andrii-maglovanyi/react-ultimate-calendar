@@ -5,11 +5,16 @@
 }
 
 .CurrentDate {
+  display: flex;
   flex-grow: 1;
+  margin: 0 -3rem;
 }
 
 .PrevDate,
 .NextDate {
   cursor: pointer;
   flex-grow: 0;
+  font-size: 1.5rem;
+  padding: 0 1rem;
+  z-index: 1;
 }

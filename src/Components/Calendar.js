@@ -22,6 +22,7 @@ const Calendar = ({
   max,
   min,
   month: monthParam,
+  multi,
   onChange,
   showWeekNumbers,
   value,
@@ -89,6 +90,16 @@ const Calendar = ({
     setYear(date.getFullYear());
   };
 
+  const monthYearPairs = multi
+    ? [
+        { month, year },
+        {
+          month: month + 1 === 12 ? 0 : month + 1,
+          year: month + 1 === 12 ? year + 1 : year
+        }
+      ]
+    : [{ month, year }];
+
   return (
     <div className={classNames(styles.Calendar, className)}>
       <DateNavigation
@@ -96,61 +107,70 @@ const Calendar = ({
         nextDate={addMonth}
         prevDate={subMonth}
       >
-        {getMonthName(month, locale)} {year}
+        {monthYearPairs.map(({ month: m, year: y }) => (
+          <div style={{ flex: 1 }} key={m} data-testid="month-name">
+            {getMonthName(m, locale)} {y}
+          </div>
+        ))}
       </DateNavigation>
 
       <div className={styles.Flex}>
-        <div className={styles.FlexDays}>
-          <div className={styles.GridHeader} data-testid="week-days">
-            {getWeekDays(locale).map(day => (
-              <div className={styles.HeaderItem} key={day}>
-                {day}
+        {monthYearPairs.map(({ month: m, year: y }) => (
+          <div className={styles.Flex} key={m}>
+            <div className={styles.FlexDays}>
+              <div className={styles.GridHeader} data-testid="week-days">
+                {getWeekDays(locale).map(day => (
+                  <div className={styles.HeaderItem} key={day}>
+                    {day}
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
 
-          <MonthDaysGrid
-            hoverWeek={hoverWeek}
-            locale={locale}
-            max={max}
-            min={min}
-            month={month}
-            onChange={onChange}
-            rangeEnd={rangeEnd}
-            rangeStart={rangeStart}
-            setHoverWeek={setHoverWeek}
-            setRange={setRange}
-            setRangeEnd={setRangeEnd}
-            setRangeStart={setRangeStart}
-            weeksSelector={weeksSelector}
-            year={year}
-          />
-        </div>
-
-        {showWeekNumbers && (
-          <div className={styles.FlexWeeks}>
-            <div className={styles.GridHeader}>&nbsp;</div>
-            <div
-              className={styles.WeekNumbersWrapper}
-              data-testid="week-numbers"
-            >
-              <WeekNumbersGrid
+              <MonthDaysGrid
                 hoverWeek={hoverWeek}
                 locale={locale}
                 max={max}
                 min={min}
-                month={month}
+                month={m}
+                multi={multi}
                 onChange={onChange}
                 rangeEnd={rangeEnd}
                 rangeStart={rangeStart}
                 setHoverWeek={setHoverWeek}
                 setRange={setRange}
+                setRangeEnd={setRangeEnd}
+                setRangeStart={setRangeStart}
                 weeksSelector={weeksSelector}
-                year={year}
+                year={y}
               />
             </div>
+
+            {showWeekNumbers && (
+              <div className={styles.FlexWeeks}>
+                <div className={styles.GridHeader}>&nbsp;</div>
+                <div
+                  className={styles.WeekNumbersWrapper}
+                  data-testid="week-numbers"
+                >
+                  <WeekNumbersGrid
+                    hoverWeek={hoverWeek}
+                    locale={locale}
+                    max={max}
+                    min={min}
+                    month={m}
+                    onChange={onChange}
+                    rangeEnd={rangeEnd}
+                    rangeStart={rangeStart}
+                    setHoverWeek={setHoverWeek}
+                    setRange={setRange}
+                    weeksSelector={weeksSelector}
+                    year={y}
+                  />
+                </div>
+              </div>
+            )}
           </div>
-        )}
+        ))}
       </div>
     </div>
   );
@@ -162,6 +182,7 @@ Calendar.defaultProps = {
   max: null,
   min: null,
   month: new Date().getMonth(),
+  multi: false,
   showWeekNumbers: false,
   weeksSelector: false,
   value: [],
@@ -174,6 +195,7 @@ Calendar.propTypes = {
   max: PropTypes.instanceOf(Date),
   min: PropTypes.instanceOf(Date),
   month: PropTypes.number,
+  multi: PropTypes.bool,
   onChange: PropTypes.func.isRequired,
   showWeekNumbers: PropTypes.bool,
   weeksSelector: PropTypes.bool,

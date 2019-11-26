@@ -88,6 +88,7 @@ export const getWeekNumber = (_date, weekStartsOn = WEEK_STARTS_ON) => {
   const date = getDate(_date);
 
   const startOfWeek = getStartOfWeek(date, weekStartsOn);
+  const endOfWeek = getEndOfWeek(date, weekStartsOn);
   let startOfFirstWeekOfTheYear = getStartOfFirstWeekOfTheYear(
     date,
     weekStartsOn
@@ -99,6 +100,14 @@ export const getWeekNumber = (_date, weekStartsOn = WEEK_STARTS_ON) => {
       date,
       weekStartsOn
     );
+  }
+
+  if (
+    startOfWeek.getFullYear() < endOfWeek.getFullYear() &&
+    startOfWeek.getTime() ===
+      getStartOfFirstWeekOfTheYear(endOfWeek, weekStartsOn).getTime()
+  ) {
+    return 1;
   }
 
   const diff = startOfWeek.getTime() - startOfFirstWeekOfTheYear.getTime();

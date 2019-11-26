@@ -85,12 +85,12 @@ const WeekNumbersGrid = ({
                 start.getFullYear()
               ))) &&
             styles.Disabled,
-          hoverWeek === index && styles.Hover,
+          hoverWeek === `${month}_${index}` && styles.Hover,
           isSelected(start, end) && styles.Selected
         )}
         key={number}
-        onFocus={() => setHoverWeek(index)}
-        onMouseOver={() => setHoverWeek(index)}
+        onFocus={() => setHoverWeek(`${month}_${index}`)}
+        onMouseOver={() => setHoverWeek(`${month}_${index}`)}
         onMouseLeave={() => setHoverWeek(null)}
         onClick={() => onClick(number, start, end)}
         onKeyPress={() => onClick(number, start, end)}

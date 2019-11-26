@@ -23,6 +23,10 @@
     color: $gray-500;
   }
 
+  &.NoShowMonth {
+    visibility: hidden;
+  }
+
   &.Today {
     background-color: $primary-color-light;
     border-radius: 50%;
