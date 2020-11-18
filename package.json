@@ -56,7 +56,7 @@
     "react-dom": "^16.8.0",
     "sass": "^1.23.0",
     "sass-loader": "^8.0.0",
-    "semantic-release": "^15.13.27",
+    "semantic-release": "^17.2.3",
     "style-loader": "^1.0.0",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.9"
