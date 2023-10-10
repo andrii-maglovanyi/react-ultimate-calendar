@@ -1,6 +1,33 @@
 @import "../variables";
 @import "./Calendar.module.scss";
 
+.Today {
+  background-color: $primary-color-light;
+  border-radius: 50%;
+}
+
+%Range {
+  margin: 0 0 $cell-spacing * 2 0;
+  width: $cell-size + $cell-spacing * 2;
+  border-radius: 0;
+}
+
+%RangeStart {
+  border-top-left-radius: radius($cell-size);
+  border-bottom-left-radius: radius($cell-size);
+  margin: 0 0 $cell-spacing * 2 $cell-spacing;
+  width: $cell-size + $cell-spacing;
+  padding-right: $cell-spacing;
+}
+
+%RangeEnd {
+  border-top-right-radius: radius($cell-size);
+  border-bottom-right-radius: radius($cell-size);
+  margin: 0 $cell-spacing $cell-spacing * 2 0;
+  width: $cell-size + $cell-spacing;
+  padding-left: $cell-spacing;
+}
+
 .Day {
   box-sizing: border-box;
   cursor: pointer;
@@ -27,40 +54,42 @@
     visibility: hidden;
   }
 
-  &.Today {
-    background-color: $primary-color-light;
-    border-radius: 50%;
+  &.Range {
+    @extend %Range;
+    border-radius: 0;
+    background-color: $primary-color;
+    color: white;
   }
 
-  &.Range {
-    background-color: $primary-color;
-    border-radius: 0;
-    color: white;
-    margin: 0 0 $cell-spacing * 2 0;
-    width: $cell-size + $cell-spacing * 2;
+  &.RangePreview {
+    @extend %Range;
+    background-color: $primary-color-light;
   }
 
   &.RangeEnd {
+    @extend %RangeEnd;
     background-color: $primary-color;
-    border-top-right-radius: radius($cell-size);
-    border-bottom-right-radius: radius($cell-size);
     color: white;
-    margin: 0 $cell-spacing $cell-spacing * 2 0;
-    width: $cell-size + $cell-spacing;
-    padding-left: $cell-spacing;
+  }
+
+  &.RangeEndPreview {
+    @extend %RangeEnd;
+    background-color: $primary-color-light;
   }
 
   &.RangeStart {
+    @extend %RangeStart;
     background-color: $primary-color;
-    border-top-left-radius: radius($cell-size);
-    border-bottom-left-radius: radius($cell-size);
     color: white;
-    margin: 0 0 $cell-spacing * 2 $cell-spacing;
-    width: $cell-size + $cell-spacing;
-    padding-right: $cell-spacing;
   }
 
-  &.RangeEnd.RangeStart {
+  &.RangeStartPreview {
+    @extend %RangeStart;
+    background-color: $primary-color-light;
+  }
+
+  &.RangeEnd.RangeStart,
+  &.RangeEndPreview.RangeStartPreview {
     margin: 0 $cell-spacing $cell-spacing * 2 $cell-spacing;
     padding: 0;
     width: $cell-size;

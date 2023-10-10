@@ -3,11 +3,10 @@ module.exports = {
     browser: true,
     jest: true
   },
-  extends: ["airbnb", "prettier", "prettier/react"],
+  extends: ["airbnb", "prettier", "prettier/react", "plugin:storybook/recommended"],
   plugins: ["prettier", "react-hooks"],
   rules: {
     "prettier/prettier": "error",
-    "react/jsx-filename-extension": ["warn", { extensions: [".js"] }],
     "react-hooks/exhaustive-deps": "warn",
     "react-hooks/rules-of-hooks": "error"
   }

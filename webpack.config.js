@@ -2,13 +2,21 @@ const path = require("path");
 
 module.exports = {
   mode: "production",
-  entry: "./src/index.js",
+  entry: "./src/index.ts",
+  devtool: "inline-source-map",
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.tsx?$/,
+        use: [
+          {
+            loader: "ts-loader",
+            options: {
+              configFile: "tsconfig.build.json",
+            },
+          },
+        ],
         exclude: /node_modules/,
-        loader: "babel-loader"
       },
       {
         test: /\.scss$/,
@@ -18,25 +26,25 @@ module.exports = {
           {
             loader: "css-loader",
             options: {
-              modules: true
-            }
+              modules: true,
+            },
           },
-          { loader: "sass-loader" }
-        ]
-      }
-    ]
+          { loader: "sass-loader" },
+        ],
+      },
+    ],
   },
   resolve: {
-    extensions: ["*", ".js"]
+    extensions: ["*", ".js", ".tsx", ".ts"],
   },
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "index.js",
     library: "react-ultimate-calendar",
     libraryTarget: "umd",
-    globalObject: "this"
+    globalObject: "this",
   },
   externals: {
-    react: "react"
-  }
+    react: "react",
+  },
 };

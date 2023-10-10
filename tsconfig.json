@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "sourceMap": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "jsx": "react",
+    "lib": ["esnext", "dom"],
+    "module": "node16",
+    "moduleResolution": "node16",
+    "outDir": "dist",
+    "target": "esnext",
+    "typeRoots": ["src/types", "./node_modules/@types"]
+  },
+  "include": ["src", "./setup-tests.js"]
+}

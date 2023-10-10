@@ -1,7 +1,8 @@
+@use "sass:math";
 @import "../variables";
 
 @function radius($size) {
-  @return $size / 2 + ($size * $size) / (8 * $size);
+  @return math.div($size, 2) + math.div($size * $size, 8 * $size);
 }
 
 %Hover {
@@ -20,13 +21,27 @@
 }
 
 .Calendar {
-  max-width: 100%;
+  text-align: center;
+  overflow: hidden;
+  padding-bottom: 0.8rem;
+  position: relative;
+  max-width: min-content;
+}
+
+.Float {
   background: white;
   box-shadow: 0 2px 44px 0 rgba(0, 0, 0, 0.2);
   border-radius: 8px;
-  overflow: hidden;
-  padding-bottom: 0.8rem;
   position: absolute;
+}
+
+.Row {
+  display: flex;
+}
+
+.Col {
+  display: flex;
+  flex-direction: column;
 }
 
 .CalendarHeader {

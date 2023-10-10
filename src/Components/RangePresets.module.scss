@@ -1,0 +1,20 @@
+@import "../variables";
+
+.RangePresets {
+  display: flex;
+  flex-direction: column;
+  padding: 0 0.5rem;
+  margin-top: 3rem;
+}
+
+.RangePreset {
+  width: min-content;
+  padding: 0.4rem 0.8rem;
+  white-space: nowrap;
+  border-radius: 1rem;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $primary-color-light;
+  }
+}
