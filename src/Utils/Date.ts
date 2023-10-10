@@ -3,7 +3,7 @@ import {
   FIRST_DAY_OF_YEAR,
   MILLISECONDS_IN_WEEK,
   STARTS_OF_WEEK,
-  WEEK_STARTS_ON
+  WEEK_STARTS_ON,
 } from "../Constants";
 
 const getDate = (date: Date) => {
@@ -55,7 +55,9 @@ export const getStartOfFirstWeekOfTheYear = (
 export const getFirstDayOfWeek = (locale: string) => {
   const [, country] = locale.split("-");
 
-  return STARTS_OF_WEEK[country as keyof typeof STARTS_OF_WEEK] ?? WEEK_STARTS_ON;
+  return (
+    STARTS_OF_WEEK[country as keyof typeof STARTS_OF_WEEK] ?? WEEK_STARTS_ON
+  );
 };
 
 /**
@@ -155,27 +157,74 @@ export const numDaysInMonth = (_date: Date) => {
   return DAYS_PER_MONTH[date.getMonth()];
 };
 
-export const isAfterDate = (date: Date | null, day: number, month: number, year: number) => {
+export const isAfterDate = (
+  date: Date | null,
+  day: number,
+  month: number,
+  year: number,
+  hour?: number,
+  minute?: number,
+  second?: number
+) => {
   if (!date) return false;
-  return (
+  const isAfter =
     year > date.getFullYear() ||
     (year === date.getFullYear() &&
       (month > date.getMonth() ||
-        (month === date.getMonth() && day > date.getDate())))
-  );
+        (month === date.getMonth() && day > date.getDate())));
+
+  if (!isAfter && hour && minute && second) {
+    return (
+      year === date.getFullYear() &&
+      month === date.getMonth() &&
+      day === date.getDate() &&
+      (hour > date.getHours() ||
+        (hour === date.getHours() &&
+          (minute > date.getMinutes() ||
+            (minute === date.getMinutes() && second > date.getSeconds()))))
+    );
+  }
+
+  return isAfter;
 };
 
-export const isBeforeDate = (date: Date | null, day: number, month: number, year: number) => {
+export const isBeforeDate = (
+  date: Date | null,
+  day: number,
+  month: number,
+  year: number,
+  hour?: number,
+  minute?: number,
+  second?: number
+) => {
   if (!date) return false;
-  return (
+  const isBefore =
     year < date.getFullYear() ||
     (year === date.getFullYear() &&
       (month < date.getMonth() ||
-        (month === date.getMonth() && day < date.getDate())))
-  );
+        (month === date.getMonth() && day < date.getDate())));
+
+  if (!isBefore && hour && minute && second) {
+    return (
+      year === date.getFullYear() &&
+      month === date.getMonth() &&
+      day === date.getDate() &&
+      (hour < date.getHours() ||
+        (hour === date.getHours() &&
+          (minute < date.getMinutes() ||
+            (minute === date.getMinutes() && second < date.getSeconds()))))
+    );
+  }
+
+  return isBefore;
 };
 
-export const isSameDay = (date: Date |null, day: number, month: number, year: number) => {
+export const isSameDay = (
+  date: Date | null,
+  day: number,
+  month: number,
+  year: number
+) => {
   if (!date) return false;
   return (
     day === date.getDate() &&

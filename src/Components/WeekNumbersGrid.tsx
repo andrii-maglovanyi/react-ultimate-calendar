@@ -90,14 +90,20 @@ const WeekNumbersGrid = ({
               max,
               end.getDate(),
               end.getMonth(),
-              end.getFullYear()
+              end.getFullYear(),
+              end.getHours(),
+              end.getMinutes(),
+              end.getSeconds()
             )) ||
             (min &&
               isBeforeDate(
                 min,
                 start.getDate(),
                 start.getMonth(),
-                start.getFullYear()
+                start.getFullYear(),
+                start.getHours(),
+                start.getMinutes(),
+                start.getSeconds()
               ))) &&
             styles.Disabled,
           hoverWeek === `${month}_${index}` && styles.Hover,

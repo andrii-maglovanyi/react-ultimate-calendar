@@ -60,7 +60,10 @@ const Calendar = ({
       _rangeStart,
       _rangeEnd.getDate(),
       _rangeEnd.getMonth(),
-      _rangeEnd.getFullYear()
+      _rangeEnd.getFullYear(),
+      _rangeEnd.getHours(),
+      _rangeEnd.getMinutes(),
+      _rangeEnd.getSeconds()
     )
   ) {
     throw new Error(
@@ -100,13 +103,24 @@ const Calendar = ({
 
     if (
       (max &&
-        isAfterDate(max, end.getDate(), end.getMonth(), end.getFullYear())) ||
+        isAfterDate(
+          max,
+          end.getDate(),
+          end.getMonth(),
+          end.getFullYear(),
+          end.getHours(),
+          end.getMinutes(),
+          end.getSeconds()
+        )) ||
       (min &&
         isBeforeDate(
           min,
           start.getDate(),
           start.getMonth(),
-          start.getFullYear()
+          start.getFullYear(),
+          start.getHours(),
+          start.getMinutes(),
+          start.getSeconds()
         ))
     ) {
       return;

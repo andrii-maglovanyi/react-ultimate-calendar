@@ -85,7 +85,10 @@ const MonthDaysGrid = ({
             min,
             startOfWeek.getDate(),
             startOfWeek.getMonth(),
-            startOfWeek.getFullYear()
+            startOfWeek.getFullYear(),
+            startOfWeek.getHours(),
+            startOfWeek.getMinutes(),
+            startOfWeek.getSeconds()
           )
         ) {
           return;
@@ -97,7 +100,10 @@ const MonthDaysGrid = ({
             max,
             endOfWeek.getDate(),
             endOfWeek.getMonth(),
-            endOfWeek.getFullYear()
+            endOfWeek.getFullYear(),
+            endOfWeek.getHours(),
+            endOfWeek.getMinutes(),
+            endOfWeek.getSeconds()
           )
         ) {
           return;
