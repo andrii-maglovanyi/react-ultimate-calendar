@@ -257,6 +257,7 @@ const Calendar = ({
             selectRange={(start, end) => {
               setRangeStart(start);
               setRangeEnd(end);
+              onChange?.(0, start, end);
             }}
             rangeStart={rangeStart}
             rangeEnd={rangeEnd}

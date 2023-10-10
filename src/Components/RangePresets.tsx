@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styles from "./RangePresets.module.scss";
 
+import classNames from "../Utils/ClassNames";
+
 interface RangePresetsProps {
   ranges: Record<string, [Date, Date]>;
   selectRange: (start: Date, end: Date) => void;
@@ -28,18 +30,24 @@ export const RangePresets = ({
 
   useEffect(() => {
     if (!isPreview) {
-      setSelectRange(["", rangeStart, rangeEnd]);
+      const title =
+        list.find(
+          ([, dates]) => rangeStart === dates[0] && rangeEnd === dates[1]
+        )?.[0] ?? "";
+
+      setSelectRange([title, rangeStart, rangeEnd]);
     }
   }, [rangeStart, rangeEnd]);
-
-  console.log("selectedRange", selectedRange);
 
   return (
     <div className={styles.RangePresets}>
       {list.slice(0, 7).map(([title, dates]) => {
         return (
           <div
-            className={styles.RangePreset}
+            className={classNames(
+              styles.RangePreset,
+              title === selectedRange?.[0] && styles.SelectedPreset
+            )}
             key={title}
             onClick={() => {
               previewRange(null, null);
