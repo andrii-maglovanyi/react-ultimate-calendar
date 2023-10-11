@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import { useRef } from "react";
 import styles from "./TimeSelector.module.scss";
@@ -11,7 +11,7 @@ export interface TimeSelectorProps {
 }
 
 const getTime = (date: Date | null) => {
-  if (!date) return;
+  if (!date) return "";
 
   const hours = String(date.getHours()).padStart(2, "0");
   const minutes = String(date.getMinutes()).padStart(2, "0");
@@ -29,6 +29,9 @@ export const TimeSelector = ({
   const startTimeRef = useRef<HTMLInputElement | null>(null);
   const endTimeRef = useRef<HTMLInputElement | null>(null);
 
+  const [startTime, setStartTime] = useState<string>(getTime(rangeStart));
+  const [endTime, setEndTime] = useState<string>(getTime(rangeEnd));
+
   useEffect(() => {
     if (active) {
       if (rangeEnd) {
@@ -39,38 +42,57 @@ export const TimeSelector = ({
     }
   }, [active]);
 
-  const onStartChange = () => {
-    const timeValue = startTimeRef.current?.value;
-    if (timeValue && rangeStart && !rangeEnd) {
-      const [hours, minutes, seconds = 0] = timeValue.split(":").map(Number);
+  useEffect(() => {
+    if (rangeStart) {
+      setStartTime(getTime(rangeStart));
+    }
+  }, [rangeStart]);
 
-      rangeStart.setHours(hours, minutes, seconds, 0);
+  useEffect(() => {
+    if (rangeEnd) {
+      setEndTime(getTime(rangeEnd));
+    }
+  }, [rangeEnd]);
 
-      onChange?.(rangeStart, null);
+  const onStartChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setStartTime(event.target.value);
+  };
+
+  const onEndChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setEndTime(event.target.value);
+  };
+
+  const onStartBlur = () => {
+    if (startTime && rangeStart) {
+      const date = new Date(rangeStart.getTime());
+      const [hours, minutes, seconds = 0] = startTime.split(":").map(Number);
+
+      date.setHours(hours, minutes, seconds, 0);
+
+      onChange?.(date, rangeEnd);
     }
   };
 
-  const onEndChange = () => {
-    const timeValue = endTimeRef.current?.value;
+  const onEndBlur = () => {
+    if (endTime && rangeStart && rangeEnd) {
+      const date = new Date(rangeEnd.getTime());
+      const [hours, minutes, seconds = 0] = endTime.split(":").map(Number);
 
-    if (timeValue && rangeStart && rangeEnd) {
-      const [hours, minutes, seconds = 0] = timeValue.split(":").map(Number);
+      date.setHours(hours, minutes, seconds, 0);
 
-      rangeEnd.setHours(hours, minutes, seconds, 0);
-
-      onChange?.(rangeStart, rangeEnd);
+      onChange?.(rangeStart, date);
     }
   };
 
   const onStartKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
-      onStartChange();
+      onStartBlur();
     }
   };
 
   const onEndKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
-      onEndChange();
+      onEndBlur();
     }
   };
 
@@ -78,22 +100,24 @@ export const TimeSelector = ({
     <div className={styles.TimeSelector}>
       <div className={styles.TimeSelectorInputs}>
         <input
-          defaultValue={getTime(rangeStart)}
+          value={startTime}
           disabled={!rangeStart}
           type="time"
           step={1}
           ref={startTimeRef}
-          onBlur={onStartChange}
+          onChange={onStartChange}
+          onBlur={onStartBlur}
           onKeyDown={onStartKeyDown}
         />
         <div>→</div>
         <input
-          defaultValue={getTime(rangeEnd)}
+          value={endTime}
           type="time"
           step={1}
           disabled={!rangeEnd}
           ref={endTimeRef}
-          onBlur={onEndChange}
+          onChange={onEndChange}
+          onBlur={onEndBlur}
           onKeyDown={onEndKeyDown}
         />
       </div>

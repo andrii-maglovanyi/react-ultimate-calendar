@@ -12,6 +12,8 @@ interface RangePresetsProps {
   isPreview: boolean;
 }
 
+const getTime = (date: Date) => Math.floor(date.getTime() / 1000);
+
 export const RangePresets = ({
   ranges,
   rangeStart,
@@ -29,11 +31,14 @@ export const RangePresets = ({
   }
 
   useEffect(() => {
-    if (!isPreview) {
+    if (!isPreview && rangeStart && rangeEnd) {
       const title =
-        list.find(
-          ([, dates]) => rangeStart === dates[0] && rangeEnd === dates[1]
-        )?.[0] ?? "";
+        list.find(([, dates]) => {
+          return (
+            getTime(rangeStart) === getTime(dates[0]) &&
+            getTime(rangeEnd) === getTime(dates[1])
+          );
+        })?.[0] ?? "";
 
       setSelectRange([title, rangeStart, rangeEnd]);
     }

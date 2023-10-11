@@ -97,6 +97,8 @@ const Calendar = ({
 
   const handleTimeChange = (start: Date, end: Date | null) => {
     setSelectTime(false);
+    setRangeStart(start);
+    setRangeEnd(end);
     onChange?.(0, start, end);
   };
 
