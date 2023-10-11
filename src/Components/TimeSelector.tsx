@@ -100,6 +100,7 @@ export const TimeSelector = ({
     <div className={styles.TimeSelector}>
       <div className={styles.TimeSelectorInputs}>
         <input
+          data-testid="start-time"
           value={startTime}
           disabled={!rangeStart}
           type="time"
@@ -111,6 +112,7 @@ export const TimeSelector = ({
         />
         <div>→</div>
         <input
+          data-testid="end-time"
           value={endTime}
           type="time"
           step={1}
