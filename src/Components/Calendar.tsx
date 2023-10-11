@@ -50,8 +50,8 @@ const Calendar = ({
   year: yearParam = new Date().getFullYear(),
   timeSelector = false,
 }: CalendarProps) => {
-  const [_rangeStart, _rangeEnd] = Array.isArray(value)
-    ? value ?? null
+  let [_rangeStart, _rangeEnd] = Array.isArray(value)
+    ? value
     : [value ?? null, null];
 
   if (
@@ -66,9 +66,12 @@ const Calendar = ({
       _rangeEnd.getSeconds()
     )
   ) {
-    throw new Error(
+    console.error(
       "Invalid dates range. End date must be later than the start date."
     );
+
+    _rangeStart = null;
+    _rangeEnd = null;
   }
 
   const [rangeStart, setRangeStart] = useState<Date | null>(_rangeStart);
@@ -268,10 +271,12 @@ const Calendar = ({
               setRangeStart(start);
               setRangeEnd(end);
             }}
-            selectRange={(start, end) => {
+            selectRange={(start, end, triggerChange = false) => {
               setRangeStart(start);
               setRangeEnd(end);
-              onChange?.(0, start, end);
+              if (triggerChange) {
+                onChange?.(0, start, end);
+              }
             }}
             rangeStart={rangeStart}
             rangeEnd={rangeEnd}

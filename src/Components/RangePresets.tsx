@@ -5,7 +5,7 @@ import classNames from "../Utils/ClassNames";
 
 interface RangePresetsProps {
   ranges: Record<string, [Date, Date]>;
-  selectRange: (start: Date, end: Date) => void;
+  selectRange: (start: Date, end: Date, triggerChange: boolean) => void;
   previewRange: (start: Date | null, end: Date | null) => void;
   rangeStart: Date | null;
   rangeEnd: Date | null;
@@ -52,7 +52,7 @@ export const RangePresets = ({
             onClick={() => {
               previewRange(null, null);
               setSelectRange([title, ...dates]);
-              selectRange(...dates);
+              selectRange(...dates, true);
             }}
             onMouseEnter={() => {
               previewRange(...dates);
@@ -60,7 +60,7 @@ export const RangePresets = ({
             onMouseLeave={() => {
               previewRange(null, null);
               if (selectedRange?.[1] && selectedRange?.[2]) {
-                selectRange(selectedRange[1], selectedRange[2]);
+                selectRange(selectedRange[1], selectedRange[2], false);
               }
             }}
           >

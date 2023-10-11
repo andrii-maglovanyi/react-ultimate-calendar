@@ -30,6 +30,15 @@ export const Calendar = {
 };
 
 /**
+ * Calendar with GB locale
+ */
+export const CalendarWithGBLocale = {
+  args: {
+    locale: "en-GB",
+  },
+};
+
+/**
  * Calendar with weeks selector
  */
 export const CalendarWithWeekSelector = {
