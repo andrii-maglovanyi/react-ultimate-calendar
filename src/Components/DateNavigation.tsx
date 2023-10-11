@@ -26,7 +26,7 @@ const DateNavigation = ({
       className={styles.PrevDate}
       onClick={prevYear}
       onKeyDown={prevYear}
-      data-testid="action-next-year"
+      data-testid="action-prev-year"
       role="button"
       tabIndex={0}
     >
@@ -37,7 +37,7 @@ const DateNavigation = ({
       className={styles.PrevDate}
       onClick={prevMonth}
       onKeyDown={prevMonth}
-      data-testid="action-prev-date"
+      data-testid="action-prev-month"
       role="button"
       tabIndex={0}
     >
@@ -49,7 +49,7 @@ const DateNavigation = ({
       className={styles.NextDate}
       onClick={nextMonth}
       onKeyDown={nextMonth}
-      data-testid="action-next-date"
+      data-testid="action-next-month"
       role="button"
       tabIndex={0}
     >

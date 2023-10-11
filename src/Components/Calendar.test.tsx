@@ -58,7 +58,7 @@ test("should return a selected week range by clicking on a week number", async (
   expect(rangeStart).toEqual(new Date(2019, 8, 29, 0, 0, 0, 0));
   expect(rangeEnd).toEqual(new Date(2019, 9, 5, 23, 59, 59, 999));
 
-  const nextMonthNode = getByTestId("action-next-date");
+  const nextMonthNode = getByTestId("action-next-month");
   fireEvent.click(nextMonthNode);
   fireEvent.click(nextMonthNode);
   fireEvent.click(nextMonthNode);
@@ -107,7 +107,7 @@ test("should allow to specify locale for the calendar", async () => {
   expect(rangeStart).toEqual(new Date(2019, 8, 30, 0, 0, 0, 0));
   expect(rangeEnd).toEqual(new Date(2019, 9, 6, 23, 59, 59, 999));
 
-  const nextMonthNode = getByTestId("action-next-date");
+  const nextMonthNode = getByTestId("action-next-month");
   fireEvent.click(nextMonthNode);
   fireEvent.click(nextMonthNode);
   fireEvent.click(nextMonthNode);
