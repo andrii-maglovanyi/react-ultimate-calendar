@@ -66,8 +66,9 @@ const Calendar = ({
       _rangeEnd.getSeconds()
     )
   ) {
-    console.error(
-      "Invalid dates range. End date must be later than the start date."
+    console.error("Invalid date range!");
+    console.info(
+      `End date (${_rangeEnd}) must be later than the start date (${_rangeStart}).`
     );
 
     _rangeStart = null;

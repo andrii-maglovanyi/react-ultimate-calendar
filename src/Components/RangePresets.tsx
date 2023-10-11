@@ -25,7 +25,7 @@ export const RangePresets = ({
   const list = Object.entries(ranges);
 
   if (list.length > 7) {
-    console.warn("RangePresets: only 6 presets are supported");
+    console.warn("RangePresets: only 7 presets are supported");
   }
 
   useEffect(() => {

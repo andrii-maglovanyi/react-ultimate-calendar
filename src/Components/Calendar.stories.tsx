@@ -116,6 +116,10 @@ export const CalendarWithTwoMonthsViewAndRangePresets = {
   },
 };
 
+const now = new Date();
+const minusOneHour = new Date(now);
+minusOneHour.setHours(now.getHours() - 1);
+
 /**
  * Calendar with two months view,time selector and range presets
  */
@@ -124,5 +128,6 @@ export const CalendarWithTwoMonthsViewTimeSelectorAndRangePresets = {
     multi: true,
     timeSelector: true,
     rangePresets: getRanges(),
+    value: [now, minusOneHour],
   },
 };
