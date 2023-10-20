@@ -23,7 +23,7 @@
 .Calendar {
   text-align: center;
   overflow: hidden;
-  padding-bottom: 0.8rem;
+  padding-bottom: 12px;
   position: relative;
   max-width: min-content;
 }
@@ -46,11 +46,11 @@
 
 .CalendarHeader {
   box-sizing: border-box;
-  height: 4rem;
-  padding: 1rem;
-  line-height: 4rem;
+  height: 56px;
+  padding: 14px;
+  line-height: 56px;
   text-align: center;
-  font-size: 1rem;
+  font-size: 14px;
   font-weight: bold;
 }
 
@@ -58,17 +58,17 @@
   background-color: #fbfbfb;
   box-sizing: border-box;
   display: flex;
-  height: 1.5rem;
-  line-height: 1.5rem;
-  margin-bottom: 0.5rem;
-  padding: 0 0.8rem;
+  height: 22px;
+  line-height: 22px;
+  margin-bottom: 8px;
+  padding: 0 12px;
   width: 100%;
 
   .HeaderItem {
     color: #8c8f93;
     cursor: default;
     flex: 1 1 auto;
-    font-size: 0.7rem;
+    font-size: 12px;
     text-align: center;
     text-transform: uppercase;
   }
@@ -76,7 +76,7 @@
 
 .WeekRow {
   display: flex;
-  margin: 0 0.8rem;
+  margin: 0 12px;
 
   &:not(.Hover) {
     .Day:not(.Disabled):not(.Range):not(.RangeEnd):not(.RangeStart):hover {
@@ -161,6 +161,6 @@
   flex-shrink: 7;
 
   .WeekNumbersWrapper {
-    margin-right: 0.8rem;
+    margin-right: 11px;
   }
 }

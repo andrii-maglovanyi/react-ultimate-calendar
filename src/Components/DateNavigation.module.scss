@@ -7,14 +7,14 @@
 .CurrentDate {
   display: flex;
   flex-grow: 1;
-  margin: 0 -3rem;
+  margin: 0 -42px;
 }
 
 .PrevDate,
 .NextDate {
   cursor: pointer;
   flex-grow: 0;
-  font-size: 1.5rem;
-  padding: 0 0.5rem;
+  font-size: 20px;
+  padding: 0 8px;
   z-index: 1;
 }
